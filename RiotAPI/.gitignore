@@ -1,0 +1,3 @@
+#Github will ignore the following files
+
+.env
