@@ -1,3 +1,5 @@
 #Github will ignore the following files
 
 .env
+
+print.txt
