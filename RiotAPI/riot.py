@@ -11,6 +11,18 @@ API_KEY = os.getenv("API_KEY")
 PUUID = os.getenv("PUUID")
 playerName = "TheFiery1"
 
+"""Class for summoner object"""
+class Summoner:
+    def __init__(self, name):
+        self.name = name
+        self.level = getSummonerLevel(name)       
+        self.iD = getSummonerID(name)
+        self.PUUID = getPUUID(name)
+
+    def __str__(self) -> str:
+        return f"{self.name}, level {self.level}, ID: {self.iD}, PUUID: {self.PUUID}"
+
+
 
 def getSummonerLevel(name) -> int:
     """
@@ -54,7 +66,7 @@ def getSummonerID(name) -> str:
 
 
 
-def getSummonerRankedInfo(name) -> str:
+def getRank(name) -> str:
     """
     Finds the rank of a summoner based on their name and their winrate
     
@@ -82,20 +94,44 @@ def getSummonerRankedInfo(name) -> str:
         return (f"{name} doesn't play ranked!")
     
     rank = summonerData[0].get("rank")
-    wins = float(summonerData[0].get("wins"))
-    losses = float(summonerData[0].get("losses"))
+    leaguePoints = summonerData[0].get("leaguePoints")
 
     if tier == None:
         tier = summonerData[1].get("tier")
         rank = summonerData[1].get("rank")
+        leaguePoints = summonerData[1].get("leaguePoints")
+
+    
+    return (f"{tier} {rank} {leaguePoints} LP")
+
+def getRankedWinrate(name) -> str:
+    
+    encryptedSummonerId = getSummonerID(name)
+    account_url = (f"https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/{encryptedSummonerId}?api_key={API_KEY}")
+    response = requests.get(account_url) #Request GET
+    if response.status_code != 200:
+        print(response.status_code)
+        return None
+    
+    summonerData = response.json() #Parse content as JSON
+
+    #Gather Data
+    try:
+        # Check if player even plays ranked
+        tier = summonerData[0].get("tier")
+    except IndexError:
+        return (f"{name} doesn't play ranked!")
+    
+    wins = float(summonerData[0].get("wins"))
+    losses = float(summonerData[0].get("losses"))
+
+    if tier == None:
         wins = float(summonerData[1].get("wins"))
         losses = float(summonerData[1].get("losses"))
 
     #Calculate Winrate
     winrate = round((wins / (wins + losses))*100, 2)
-    
-    return (f"{tier} {rank} Winrate:{winrate}%")
-
+    return f"{winrate}"
 
 
 def getFavoriteChampion(name) -> str:
@@ -180,5 +216,8 @@ def getChampionName(championId) -> str:
             foundChamp = champion
             break
     return foundChamp
+
+summoner1 = Summoner(playerName)
+summoner2 = Summoner('ryzalkorz')
 
 
