@@ -1,0 +1,92 @@
+@import "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css";
+
+
+body,
+html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: linear-gradient(90deg, #005A82, #513cc8);
+    font-family: 'Arial', sans-serif;
+    color: #333;
+}
+
+
+.title {
+    margin-left: 10%;
+    display: flex;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: calc(4.2vw);
+    justify-content: center;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.box {
+    background-color: #C89B3C;
+    justify-content: center;
+    
+}
+
+.columns {
+    font-size: 18px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    overflow-y: auto;
+    
+}
+
+.column {
+    width: 1000px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-left: 10px;
+    font-size: calc(1.5vw);
+    margin-right: auto;
+    margin-left: auto;
+    color: #000000;
+}
+
+@media (max-width: 600px) {
+    .column {
+        font-size: 16px;
+        /* Set a different font size for smaller screens */
+    }
+    .title {
+        font-size: 24px;
+    }
+}
+
+.custom-underline {
+    position: relative;
+    border-bottom: 2px solid #000000;
+    background: linear-gradient(90deg, #C8AA6E, #C89B3C);
+    width: 100%;
+    margin: auto;
+    
+}
+
+.custom-offset {
+    margin-left: -30px;
+    
+}
+
+button {
+    background-color: #C89B3C;
+    border: #C8AA6E;
+    
+}
+
+.nameInput {
+    background-color: #C89B3C;
+    border: 2px solid #050300;
+    border-radius: 100px;
+    padding: 3px 16px;
+    color: #000000;
+    cursor: pointer;
+    
+}

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>League Friend Leaderboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body class="everything">
+    <section class="section">
+        <div class="container">
+            <div class="box">
+                <h1 class="title">
+                    FRIEND LEADERBOARD
+                </h1>
+                <div style="margin-left: 20%;">
+                    <strong style="display: inline-block; margin-right: 10px;">Enter your username:</strong>
+                    <form action="/process" method="post" autocomplete="off" style="display: inline-block;">
+                        <input type="text" name="username" required>
+                        <button class="nameInput" type="submit">
+                            <strong>Submit</strong>
+                        </button>
+                    </form>
+                    <strong style="display: inline-block; margin-right: 10px;">{{data}}</strong>
+                </div>
+                <div class="columns">
+                    <!-- First Row -->
+                    <div class="column">
+                        <strong>
+                            <div class="text" style="text-align: left; cursor: pointer; margin-left: 5px;" onclick="sortUser()">
+                                Username
+                            </div>
+                        </strong>
+                    </div>
+                    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+                    <script>
+                        function sortUser() {
+                            // Send data to Flask server using AJAX
+                            $.ajax({
+                                type: 'POST',
+                                url: '/sortUser',  // Update with your Flask route
+                                data: { message: 'names' },  // Data to send
+                                success: function (response) { 
+                                    $('.everything').empty();
+                                    document.write(response); 
+                                },
+                            
+                            });
+                        }
+                    </script>
+                    </script>
+                    <div class="column">
+                        <strong>
+                            <div class="text" style="text-align: center; cursor: pointer;" onclick="sortLevel()">
+                                Level
+                            </div>
+                        </strong>
+                    </div>
+                    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+                    <script>
+                        function sortLevel() {
+                            // Send data to Flask server using AJAX
+                            $.ajax({
+                                type: 'POST',
+                                url: '/sortLevel',  // Update with your Flask route
+                                data: { message: 'levels' },  // Data to send
+                                success: function (response) {
+                                    $('.everything').empty();
+                                    document.write(response);
+                                },
+
+                            });
+                        }
+                    </script>
+                    </script>
+                    <div class="column">
+                        <strong>
+                            <div class="text" style="text-align: center; cursor: pointer;" onclick="sortRank()">
+                                Rank
+                            </div>
+                        </strong>
+                    </div>
+                    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+                    <script>
+                        function sortRank() {
+                            // Send data to Flask server using AJAX
+                            $.ajax({
+                                type: 'POST',
+                                url: '/sortRank',  // Update with your Flask route
+                                data: { message: 'ranks' },  // Data to send
+                                success: function (response) {
+                                    $('.everything').empty();
+                                    document.write(response);
+                                },
+
+                            });
+                        }
+                    </script>
+                    </script>
+                    <div class="column">
+                        <strong>
+                            <div class="text" style="text-align: center; cursor: pointer;" onclick="sortWin()">
+                                WinRate
+                            </div>
+                        </strong>
+                    </div>
+                    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+                    <script>
+                        function sortWin() {
+                            // Send data to Flask server using AJAX
+                            $.ajax({
+                                type: 'POST',
+                                url: '/sortWin',  // Update with your Flask route
+                                data: { message: 'win' },  // Data to send
+                                success: function (response) {
+                                    $('.everything').empty();
+                                    document.write(response);
+                                },
+
+                            });
+                        }
+                    </script>
+                    </script>
+                </div>
+                {% for i in range(numberOfRows) %}
+                <hr class="custom-underline">
+                <div class="columns">
+                    <!-- First Row -->
+                    <div class="column">
+                        <div class="text" style="text-align: left;">
+                            {{i + 1}}. {{ names[i] }}
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="text" style="text-align: center;">
+                            {{players[names[i]]['Level']}}
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="text" style="text-align: center;">
+                            {{players[names[i]]['Rank']}}
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="text" style="text-align: center;">
+                            {{players[names[i]]['WinRate']}}
+                        </div>
+                    </div>
+                
+                </div>
+                {% endfor %}
+
+
+            </div>
+
+    </section>
+
+</body>
+
+</html>

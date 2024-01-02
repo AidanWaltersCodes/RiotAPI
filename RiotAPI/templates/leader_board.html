@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>League Friend Leaderboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"> -->
+    <link rel="stylesheet" href="styles.css">
+    
+</head>
+
+<body>
+    <section class="section">
+        <div class="container">
+            <div class="box">
+                <h1 class="title">
+                    FRIEND LEADERBOARD
+                </h1>
+        <div style="text-align: center; font-size: large;">
+            <strong style="display: inline-block; margin-right: 10px;">
+                Enter your username:
+            </strong>
+            <form action="/process" method="post" autocomplete="off" style="display: inline-block;">
+                <input type="text" name="username" required>
+                <button class="nameInput" type="submit">
+                    <strong>Submit</strong>
+                </button>
+            </form>
+        </div>
+            <div class="columns">
+                <!-- First Row -->
+                <div class="column">
+                    <strong>
+                    <div class="text" style="text-align: left; cursor: pointer; margin-left: 5px;" onclick="sortUser()">
+                        Username
+                    </div>
+                    </strong>
+                </div>
+                <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+                <script>
+                    function handleClick() {
+                        // Prevent the default form submission
+                        event.preventDefault();
+
+                        // Send data to Flask server using AJAX
+                        $.ajax({
+                            type: 'POST',
+                            url: '/sortUser',  // Update with your Flask route
+                            data: { message: 'names' },  // Data to send
+                            success: function (response) {
+                                alert('Server response: ' + response);
+                                // Handle the server's response as needed
+                            },
+                            error: function (error) {
+                                console.error('Error:', error);
+                            }
+                        });
+
+                        // Prevent the default form submission
+                        return false;
+                    }
+                </script>
+                <div class="column">
+                    <strong>
+                    <div class="text" style="text-align: center; cursor: pointer;" onclick="sortLevel">
+                        Level
+                    </div>
+                    </strong>
+                </div>
+                <div class="column">
+                    <strong>
+                    <div class="text" style="text-align: center; cursor: pointer;" onclick="sortRank">
+                        Rank
+                    </div>
+                    </strong>
+                </div>
+                <div class="column">
+                    <strong>
+                    <div class="text" style="text-align: center; cursor: pointer;" onclick="sortWin">
+                        WinRate
+                    </div>
+                    </strong>
+                </div>
+                
+            </div>
+            <hr class="custom-underline">
+            
+            <div class="columns">
+                <!-- Second Row -->
+                <div class="column">
+                    <div style="text-align: left;">
+                        1. TheFiery1
+                    </div>
+                </div>
+                <div class="column" style="text-align: center;">
+                    448
+                </div>
+                <div class="column" style="text-align: center;">
+                    Gold II 26 LP
+                </div>
+                <div class="column" style="text-align: center;">
+                    57.14%
+                </div>
+            </div>
+            <hr class="custom-underline">
+            <div class="columns">
+                <!-- Second Row -->
+                <div class="column">
+                    <div style="text-align: left;">
+                        2. OtherPlayerMan
+                    </div>
+                </div>
+                <div class="column" style="text-align: center;">
+                    554
+                </div>
+                <div class="column" style="text-align: center;">
+                    Grandmaster III 222
+                </div>
+                <div class="column" style="text-align: center;">
+                    32.14%
+                </div>
+            </div>
+
+
+            </div>
+            
+    </section>
+    
+</body>
+</html>
