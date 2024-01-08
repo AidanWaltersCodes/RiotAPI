@@ -8,12 +8,21 @@ html {
     padding: 0;
 }
 
+
 body {
     background: linear-gradient(90deg, #005A82, #513cc8);
     font-family: 'Arial', sans-serif;
     color: #333;
 }
 
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
 
 .title {
     margin-left: 10%;
@@ -28,7 +37,7 @@ body {
 .box {
     background-color: #C89B3C;
     justify-content: center;
-    
+    animation: fadeIn .1s;
 }
 
 .columns {
